@@ -2,12 +2,12 @@ package com.example.demo.models;
 
 import jakarta.persistence.*;
 
-	@Entity
+@Entity
 @Table(name = "customers")
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String name;
 	private String email;
 	private String phone;
@@ -21,7 +21,7 @@ public class Customer {
 		this.phone = phone;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -38,3 +38,5 @@ public class Customer {
 	}
 
 }
+
+
