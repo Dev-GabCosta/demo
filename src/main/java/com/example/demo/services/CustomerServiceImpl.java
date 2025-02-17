@@ -1,10 +1,11 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Customer;
+import com.example.demo.dtos.CustomerResponse;
 import com.example.demo.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -14,9 +15,18 @@ public class CustomerServiceImpl implements CustomerService {
 		this.repository = repository;
 	}
 
-	public List<Customer> getAllCustomers() {
-		List<Customer> customers = repository.findAll();
-		return  customers;
+	public List<CustomerResponse> getAllCustomers() {
+		return repository.findAll()
+				       .stream()
+				       .map(
+						       customer -> new CustomerResponse(
+								       customer.getId(),
+								       customer.getName(),
+								       customer.getEmail(),
+								       customer.getPhone()
+						       )
+				       )
+				       .collect(Collectors.toList());
 	}
 
 }
